@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Quiz</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
 body{
@@ -50,8 +49,6 @@ button:hover{ background:#334155; }
 </div>
 
 <script>
-
-emailjs.init("k307-I8UB8q3-PfF9");
 
 const mapsLink = "https://maps.app.goo.gl/SfseKGpdZnoTyPi68";
 
@@ -158,9 +155,10 @@ window.open(mapsLink, "_blank");
 }
 
 function enviarEmail(msg){
-emailjs.send("service_p9veour", "template_ng7oy1n", {
-localizacao: msg
-});
+const url = "https://docs.google.com/forms/d/e/1FAIpQLSdwhlo8fdEGi7vjCGlY2FeBCBfhYdnQjgGCLKFCGgceTNnjGw/formResponse";
+const body = new FormData();
+body.append("entry.1196602189", msg);
+fetch(url, { method:"POST", mode:"no-cors", body });
 }
 
 mostrarPergunta();
