@@ -3,243 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <title>Quiz</title>
+
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
 }
-
-.container {
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
+.container{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+    animation:fade .6s;
 }
-
-@keyframes fade {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+button{
+    display:block;
+    width:100%;
+    margin:10px 0;
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#1e293b;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
 }
-
-button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  background: #1e293b;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #334155;
+button:hover{ background:#334155; }
+@keyframes fade{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 <body>
 
-<div class="container" id="container">
-  <h2 id="pergunta"></h2>
-  <div id="opcoes"></div>
+<div class="container">
+<h2 id="pergunta"></h2>
+<div id="opcoes"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-emailjs.init('k307-I8UB8q3-PfF9');
 
 const mapsLink = "https://maps.app.goo.gl/SfseKGpdZnoTyPi68";
 
 const perguntas = [
-  {
-    p: "1. O que mais te aproxima de alguém?",
-    o: [
-      { t: "Conversas profundas", v: "falcao" },
-      { t: "Momentos leves",      v: "meio"   },
-      { t: "Risos e improviso",   v: "outro"  }
-    ]
-  },
-  {
-    p: "2. Um encontro ideal seria:",
-    o: [
-      { t: "Algo inesperado",       v: "falcao" },
-      { t: "Planejado com carinho", v: "meio"   },
-      { t: "Totalmente espontâneo", v: "outro"  }
-    ]
-  },
-  {
-    p: "3. Você se conecta mais por:",
-    o: [
-      { t: "Silêncios confortáveis", v: "falcao" },
-      { t: "Troca constante",        v: "meio"   },
-      { t: "Diversão e energia",     v: "outro"  }
-    ]
-  },
-  {
-    p: "4. Quando pensa em nós, sente:",
-    o: [
-      { t: "Curiosidade intensa", v: "falcao" },
-      { t: "Leveza",              v: "meio"   },
-      { t: "Nada",                v: "outro"  }
-    ]
-  },
-  {
-    p: "5. O que mais importa?",
-    o: [
-      { t: "Presença verdadeira", v: "falcao" },
-      { t: "Companhia",           v: "meio"   },
-      { t: "Momento divertido",   v: "outro"  }
-    ]
-  },
-  {
-    p: "6. Você prefere:",
-    o: [
-      { t: "Olhares que dizem tudo", v: "falcao" },
-      { t: "Conversar horas",        v: "meio"   },
-      { t: "Rir sem pensar",         v: "outro"  }
-    ]
-  },
-  {
-    p: "7. Um convite perfeito seria:",
-    o: [
-      { t: "Algo simbólico",    v: "falcao" },
-      { t: "Um café tranquilo", v: "meio"   },
-      { t: "Algo animado",      v: "outro"  }
-    ]
-  },
-  {
-    p: "8. O que te faz ficar?",
-    o: [
-      { t: "Conexão rara",    v: "falcao" },
-      { t: "Compatibilidade", v: "meio"   },
-      { t: "Diversão",        v: "outro"  }
-    ]
-  },
-  {
-    p: "9. Quando algo é especial, você:",
-    o: [
-      { t: "Sente antes de entender", v: "falcao" },
-      { t: "Analisa com calma",       v: "meio"   },
-      { t: "Aproveita sem pensar",    v: "outro"  }
-    ]
-  },
-  {
-    p: "10. Se pudesse escolher agora:",
-    o: [
-      { t: "Continuar descobrindo", v: "meio"     },
-      { t: "Deixar pra lá",         v: "outro"    },
-      { t: "Qualquer lugar comigo", v: "especial" }
-    ]
-  }
+{p:"1. O que mais te aproxima de alguém?",o:[
+{t:"Momentos leves",v:"meio"},
+{t:"Risos e improviso",v:"outro"},
+{t:"Necessidade",v:"falcao"}
+]},
+{p:"2. Um encontro ideal seria:",o:[
+{t:"Algo inesperado",v:"meio"},
+{t:"Planejado com carinho",v:"outro"},
+{t:"Totalmente espontâneo",v:"falcao"}
+]},
+{p:"3. Você se conecta mais por:",o:[
+{t:"Silêncios confortáveis",v:"falcao"},
+{t:"Troca constante",v:"meio"},
+{t:"Diversão e energia",v:"outro"}
+]},
+{p:"4. Quando pensa em nós, sente:",o:[
+{t:"Curiosidade",v:"falcao"},
+{t:"Leveza",v:"meio"},
+{t:"Nada demais",v:"outro"}
+]},
+{p:"5. O que mais importa?",o:[
+{t:"Presença verdadeira",v:"falcao"},
+{t:"Companhia",v:"meio"},
+{t:"Momento divertido",v:"outro"}
+]},
+{p:"6. Você prefere:",o:[
+{t:"Olhares que dizem tudo",v:"falcao"},
+{t:"Conversar horas",v:"meio"},
+{t:"Ser funcional",v:"outro"}
+]},
+{p:"7. Um convite perfeito seria:",o:[
+{t:"Algo simbólico",v:"falcao"},
+{t:"Um café tranquilo",v:"meio"},
+{t:"Uma festa",v:"outro"}
+]},
+{p:"8. O que te faz ficar?",o:[
+{t:"Conexão rara",v:"falcao"},
+{t:"Compatibilidade",v:"meio"},
+{t:"Responsabilidade",v:"outro"}
+]},
+{p:"9. Quando algo é especial, você:",o:[
+{t:"Sente antes de entender",v:"falcao"},
+{t:"Analisa com calma",v:"meio"},
+{t:"Aproveita sem pensar",v:"outro"}
+]},
+{p:"10. Se pudesse escolher agora:",o:[
+{t:"Descobrir o novo",v:"meio"},
+{t:"Deixar pra lá",v:"outro"},
+{t:"Qualquer lugar comigo",v:"especial"}
+]}
 ];
 
 let atual = 0;
 let respostas = [];
 
-function animar(fn) {
-  const el = document.getElementById('container');
-  el.style.opacity = 0;
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-  setTimeout(() => {
-    fn();
-    el.style.opacity = 1;
-    el.style.transform = 'translateY(0)';
-  }, 300);
+function mostrarPergunta(){
+if(atual >= perguntas.length){ resultado(); return; }
+document.getElementById("pergunta").innerText = perguntas[atual].p;
+const op = document.getElementById("opcoes");
+op.innerHTML = "";
+perguntas[atual].o.forEach(opt=>{
+const btn = document.createElement("button");
+btn.innerText = opt.t;
+btn.onclick = ()=>{ respostas.push(opt.v); atual++; mostrarPergunta(); };
+op.appendChild(btn);
+});
 }
 
-function mostrarPergunta() {
-  document.getElementById('pergunta').innerText = perguntas[atual].p;
-  const op = document.getElementById('opcoes');
-  op.innerHTML = '';
-  perguntas[atual].o.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.innerText = opt.t;
-    btn.onclick = () => {
-      respostas.push(opt.v);
-      atual++;
-      if (atual >= perguntas.length) {
-        animar(mostrarResultado);
-      } else {
-        animar(mostrarPergunta);
-      }
-    };
-    op.appendChild(btn);
-  });
+function resultado(){
+const falcao = respostas.filter(r=>r==="falcao").length;
+const especial = respostas.includes("especial");
+const porcentagem = falcao / respostas.length;
+const div = document.querySelector(".container");
+
+if(especial){
+div.innerHTML=`<h2>Destino desbloqueado</h2><button onclick="abrirMapa()">Destino desbloqueado</button>`;
+enviarEmail("Escolheu opção especial");
+return;
+}
+if(porcentagem >= 0.5){
+div.innerHTML=`<h2>Você encontrou o caminho.</h2><button onclick="abrirMapa()">Abrir localização</button>`;
+enviarEmail("Perfil falcão detectado");
+return;
+}
+if(porcentagem >= 0.3){
+div.innerHTML=`<h2>Aceitar um convite?</h2>
+<button onclick="mostrarDestino()">Sim</button>
+<button onclick="mostrarMensagemFinal()">Não</button>`;
+return;
+}
+mostrarMensagemFinal();
 }
 
-function mostrarResultado() {
-  const falcaoCount = respostas.filter(r => r === 'falcao').length;
-  const temEspecial = respostas.includes('especial');
-  const porcentagem = falcaoCount / respostas.length;
-
-  if (temEspecial) {
-    mostrarMapa('Destino desbloqueado');
-    enviarEmail('Escolheu opção especial');
-  } else if (porcentagem >= 0.5) {
-    mostrarMapa('Você encontrou o caminho.');
-    enviarEmail('Perfil falcão detectado');
-  } else if (porcentagem >= 0.3) {
-    mostrarConvite();
-  } else {
-    mostrarProximoQR();
-  }
+function mostrarDestino(){
+document.querySelector(".container").innerHTML=`<h2>Destino desbloqueado</h2><button onclick="abrirMapa()">Destino desbloqueado</button>`;
+enviarEmail("Aceitou o convite");
 }
 
-function mostrarMapa(titulo) {
-  document.getElementById('pergunta').innerText = titulo;
-  const op = document.getElementById('opcoes');
-  op.innerHTML = '';
-  const btn = document.createElement('button');
-  btn.innerText = 'Revelar o destino';
-  btn.onclick = () => window.open(mapsLink, '_blank');
-  op.appendChild(btn);
+function mostrarMensagemFinal(){
+document.querySelector(".container").innerHTML=`<h2>Existe um último QR, se quiser, vem pegá-lo.</h2>`;
 }
 
-function mostrarConvite() {
-  document.getElementById('pergunta').innerText = 'Aceita um convite?';
-  const op = document.getElementById('opcoes');
-  op.innerHTML = '';
-
-  const sim = document.createElement('button');
-  sim.innerText = 'Sim';
-  sim.onclick = () => {
-    enviarEmail('Convite aceito');
-    animar(() => mostrarMapa('Destino desbloqueado'));
-  };
-
-  const nao = document.createElement('button');
-  nao.innerText = 'Não';
-  nao.onclick = () => animar(mostrarProximoQR);
-
-  op.appendChild(sim);
-  op.appendChild(nao);
+function abrirMapa(){
+window.open(mapsLink, "_blank");
 }
 
-function mostrarProximoQR() {
-  document.getElementById('pergunta').innerHTML =
-    'As escolhas sempre não são nossas.<br>Vá buscar o próximo QR.';
-  document.getElementById('opcoes').innerHTML = '';
-}
-
-function enviarEmail(msg) {
-  emailjs.send('service_p9veour', 'template_ng7oy1n', {
-    to_email: 'Luan.apdol@gmail.com',
-    message: msg
-  }).catch(err => console.error('Erro ao enviar email:', err));
+function enviarEmail(msg){
+const url = "https://docs.google.com/forms/d/e/1FAIpQLSdwhlo8fdEGi7vjCGlY2FeBCBfhYdnQjgGCLKFCGgceTNnjGw/formResponse";
+const body = new FormData();
+body.append("entry.1196602189", msg);
+fetch(url, { method:"POST", mode:"no-cors", body });
 }
 
 mostrarPergunta();
+
 </script>
 </body>
 </html>
