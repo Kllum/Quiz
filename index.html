@@ -16,6 +16,7 @@ body{
     margin:0;
     padding:20px;
     box-sizing:border-box;
+    transition: background 0.8s ease;
 }
 .container{
     width:90%;
@@ -57,6 +58,19 @@ button:hover{ background:#334155; }
 
 const mapsLink = "https://maps.app.goo.gl/SfseKGpdZnoTyPi68";
 
+const cores = [
+  "#0f172a",
+  "#111b2e",
+  "#131f32",
+  "#152336",
+  "#17273a",
+  "#192b3e",
+  "#1b2f42",
+  "#1d3346",
+  "#1f374a",
+  "#21314e"
+];
+
 const paginas = [
   {
     texto: "Às vezes surgem momentos que podem ser explorados ou apenas observados.\n\nPode seguir por curiosidade, sem pressa, ou parar a qualquer momento — tudo certo.",
@@ -87,7 +101,7 @@ const paginas = [
     texto: "Conexões surgem de forma inesperada. Você:",
     opcoes: [
       { t: "Aproveita oportunidades",    acao: "proximo" },
-      { t: "Observa de longe",           acao: "proximo" },
+      { t: "Analisa primeiro",           acao: "proximo" },
       { t: "Protege o que já construiu", acao: "proximo" },
       { t: "Deixa o tempo decidir",      acao: "proximo" }
     ]
@@ -150,7 +164,12 @@ const paginas = [
 
 let paginaAtual = 0;
 
-function mostrar(pagina){
+function atualizarCor(indice){
+  document.body.style.background = cores[Math.min(indice, cores.length - 1)];
+}
+
+function mostrar(pagina, indice){
+  atualizarCor(indice);
   const tela = document.getElementById("tela");
   tela.innerHTML = "";
   const h2 = document.createElement("h2");
@@ -168,7 +187,7 @@ function mostrar(pagina){
 function executar(acao){
   if(acao === "proximo"){
     paginaAtual++;
-    mostrar(paginas[paginaAtual]);
+    mostrar(paginas[paginaAtual], paginaAtual);
   } else if(acao === "parar"){
     window.close();
   } else if(acao === "resultado_sim"){
@@ -176,13 +195,16 @@ function executar(acao){
   } else if(acao === "resultado_outro_dia"){
     mostrarResultado("O tempo também sabe encontrar caminhos.", "Descobrir", "Aceitou o encontro — Outro dia");
   } else if(acao === "resultado_talvez"){
+    atualizarCor(cores.length - 1);
     document.getElementById("tela").innerHTML = `<h2>Sem pressa, pequenos passos têm seu próprio tempo.</h2>`;
   } else if(acao === "resultado_nao"){
+    atualizarCor(cores.length - 1);
     document.getElementById("tela").innerHTML = `<h2>Um último QR permanece à disposição, sem pressa ou obrigação.</h2>`;
   }
 }
 
 function mostrarResultado(mensagem, textoBotao, emailMsg){
+  atualizarCor(cores.length - 1);
   const tela = document.getElementById("tela");
   tela.innerHTML = "";
   const h2 = document.createElement("h2");
@@ -204,7 +226,7 @@ function enviarNotificacao(msg){
   fetch(url, { method:"POST", mode:"no-cors", body });
 }
 
-mostrar(paginas[0]);
+mostrar(paginas[0], 0);
 
 </script>
 </body>
