@@ -12,14 +12,22 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
     margin:0;
+    padding:20px;
+    box-sizing:border-box;
 }
 .container{
     width:90%;
     max-width:500px;
     text-align:center;
     animation:fade .6s;
+}
+h2{
+    font-size:1.3rem;
+    line-height:1.7;
+    margin-bottom:2rem;
+    font-weight:400;
 }
 button{
     display:block;
@@ -43,130 +51,160 @@ button:hover{ background:#334155; }
 </head>
 <body>
 
-<div class="container">
-<h2 id="pergunta"></h2>
-<div id="opcoes"></div>
-</div>
+<div class="container" id="tela"></div>
 
 <script>
 
 const mapsLink = "https://maps.app.goo.gl/SfseKGpdZnoTyPi68";
 
-const perguntas = [
-{p:"1. O que mais te aproxima de alguém?",o:[
-{t:"Momentos leves",v:"meio"},
-{t:"Risos e improviso",v:"outro"},
-{t:"Necessidade",v:"falcao"}
-]},
-{p:"2. Um encontro ideal seria:",o:[
-{t:"Algo inesperado",v:"meio"},
-{t:"Planejado com carinho",v:"outro"},
-{t:"Totalmente espontâneo",v:"falcao"}
-]},
-{p:"3. Você se conecta mais por:",o:[
-{t:"Silêncios confortáveis",v:"falcao"},
-{t:"Troca constante",v:"meio"},
-{t:"Diversão e energia",v:"outro"}
-]},
-{p:"4. Quando pensa em nós, sente:",o:[
-{t:"Curiosidade",v:"falcao"},
-{t:"Leveza",v:"meio"},
-{t:"Nada demais",v:"outro"}
-]},
-{p:"5. O que mais importa?",o:[
-{t:"Presença verdadeira",v:"falcao"},
-{t:"Companhia",v:"meio"},
-{t:"Momento divertido",v:"outro"}
-]},
-{p:"6. Você prefere:",o:[
-{t:"Olhares que dizem tudo",v:"falcao"},
-{t:"Conversar horas",v:"meio"},
-{t:"Ser funcional",v:"outro"}
-]},
-{p:"7. Um convite perfeito seria:",o:[
-{t:"Algo simbólico",v:"falcao"},
-{t:"Um café tranquilo",v:"meio"},
-{t:"Uma festa",v:"outro"}
-]},
-{p:"8. O que te faz ficar?",o:[
-{t:"Conexão rara",v:"falcao"},
-{t:"Compatibilidade",v:"meio"},
-{t:"Responsabilidade",v:"outro"}
-]},
-{p:"9. Quando algo é especial, você:",o:[
-{t:"Sente antes de entender",v:"falcao"},
-{t:"Analisa com calma",v:"meio"},
-{t:"Aproveita sem pensar",v:"outro"}
-]},
-{p:"10. Se pudesse escolher agora:",o:[
-{t:"Descobrir o novo",v:"meio"},
-{t:"Deixar pra lá",v:"outro"},
-{t:"Qualquer lugar comigo",v:"especial"}
-]}
+const paginas = [
+  {
+    texto: "Às vezes surgem momentos que podem ser explorados ou apenas observados.\n\nPode seguir por curiosidade, sem pressa, ou parar a qualquer momento — tudo certo.",
+    opcoes: [
+      { t: "Continuar", acao: "proximo" },
+      { t: "Parar",     acao: "parar"   }
+    ]
+  },
+  {
+    texto: "Algo inesperado acontece. Você:",
+    opcoes: [
+      { t: "Ri da situação",                  acao: "proximo" },
+      { t: "Observa antes de agir",           acao: "proximo" },
+      { t: "Precisa de tempo para processar", acao: "proximo" },
+      { t: "Depende do dia",                  acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Você decide mais pelo:",
+    opcoes: [
+      { t: "Impulso",    acao: "proximo" },
+      { t: "Lógica",     acao: "proximo" },
+      { t: "Sentimento", acao: "proximo" },
+      { t: "Equilíbrio", acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Conexões surgem de forma inesperada. Você:",
+    opcoes: [
+      { t: "Aproveita oportunidades",    acao: "proximo" },
+      { t: "Observa de longe",           acao: "proximo" },
+      { t: "Protege o que já construiu", acao: "proximo" },
+      { t: "Deixa o tempo decidir",      acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Algo desperta curiosidade. Você:",
+    opcoes: [
+      { t: "Ignora",                acao: "proximo" },
+      { t: "Observa de longe",      acao: "proximo" },
+      { t: "Experimenta um pouco",  acao: "proximo" },
+      { t: "Explora completamente", acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Crescer às vezes significa:",
+    opcoes: [
+      { t: "Manter escolhas feitas", acao: "proximo" },
+      { t: "Revisitar caminhos",     acao: "proximo" },
+      { t: "Criar novos espaços",    acao: "proximo" },
+      { t: "Descobrir sem pressa",   acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Mudanças importantes precisam ser grandes?",
+    opcoes: [
+      { t: "Sim",                         acao: "proximo" },
+      { t: "Não, pequenos passos bastam", acao: "proximo" },
+      { t: "Depende",                     acao: "proximo" },
+      { t: "Nunca pensei nisso",          acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Algumas histórias não pedem respostas imediatas, apenas um começo. Faz sentido:",
+    opcoes: [
+      { t: "Explorar",     acao: "proximo" },
+      { t: "Observar",     acao: "proximo" },
+      { t: "Deixar Fluir", acao: "proximo" },
+      { t: "Ignorar",      acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Algumas histórias não pedem respostas imediatas, apenas um começo. Isso faz sentido?",
+    opcoes: [
+      { t: "Sim",     acao: "proximo" },
+      { t: "Talvez",  acao: "proximo" },
+      { t: "Não sei", acao: "proximo" },
+      { t: "Não",     acao: "proximo" }
+    ]
+  },
+  {
+    texto: "Sem promessas ou definições. Apenas um primeiro passo.\n\nVocê gostaria de me encontrar?",
+    opcoes: [
+      { t: "Sim",       acao: "resultado_sim"       },
+      { t: "Outro dia", acao: "resultado_outro_dia" },
+      { t: "Talvez",    acao: "resultado_talvez"    },
+      { t: "Não",       acao: "resultado_nao"       }
+    ]
+  }
 ];
 
-let atual = 0;
-let respostas = [];
+let paginaAtual = 0;
 
-function mostrarPergunta(){
-if(atual >= perguntas.length){ resultado(); return; }
-document.getElementById("pergunta").innerText = perguntas[atual].p;
-const op = document.getElementById("opcoes");
-op.innerHTML = "";
-perguntas[atual].o.forEach(opt=>{
-const btn = document.createElement("button");
-btn.innerText = opt.t;
-btn.onclick = ()=>{ respostas.push(opt.v); atual++; mostrarPergunta(); };
-op.appendChild(btn);
-});
-}
-
-function resultado(){
-const falcao = respostas.filter(r=>r==="falcao").length;
-const especial = respostas.includes("especial");
-const porcentagem = falcao / respostas.length;
-const div = document.querySelector(".container");
-
-if(especial){
-div.innerHTML=`<h2>Destino desbloqueado</h2><button onclick="abrirMapa()">Destino desbloqueado</button>`;
-enviarEmail("Escolheu opção especial");
-return;
-}
-if(porcentagem >= 0.5){
-div.innerHTML=`<h2>Você encontrou o caminho.</h2><button onclick="abrirMapa()">Abrir localização</button>`;
-enviarEmail("Perfil falcão detectado");
-return;
-}
-if(porcentagem >= 0.3){
-div.innerHTML=`<h2>Aceitar um convite?</h2>
-<button onclick="mostrarDestino()">Sim</button>
-<button onclick="mostrarMensagemFinal()">Não</button>`;
-return;
-}
-mostrarMensagemFinal();
+function mostrar(pagina){
+  const tela = document.getElementById("tela");
+  tela.innerHTML = "";
+  const h2 = document.createElement("h2");
+  h2.style.whiteSpace = "pre-line";
+  h2.innerText = pagina.texto;
+  tela.appendChild(h2);
+  pagina.opcoes.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.innerText = opt.t;
+    btn.onclick = () => executar(opt.acao);
+    tela.appendChild(btn);
+  });
 }
 
-function mostrarDestino(){
-document.querySelector(".container").innerHTML=`<h2>Destino desbloqueado</h2><button onclick="abrirMapa()">Destino desbloqueado</button>`;
-enviarEmail("Aceitou o convite");
+function executar(acao){
+  if(acao === "proximo"){
+    paginaAtual++;
+    mostrar(paginas[paginaAtual]);
+  } else if(acao === "parar"){
+    window.close();
+  } else if(acao === "resultado_sim"){
+    mostrarResultado("Então começamos por aqui.", "Descobrir", "Aceitou o encontro — Sim");
+  } else if(acao === "resultado_outro_dia"){
+    mostrarResultado("O tempo também sabe encontrar caminhos.", "Descobrir", "Aceitou o encontro — Outro dia");
+  } else if(acao === "resultado_talvez"){
+    document.getElementById("tela").innerHTML = `<h2>Sem pressa, pequenos passos têm seu próprio tempo.</h2>`;
+  } else if(acao === "resultado_nao"){
+    document.getElementById("tela").innerHTML = `<h2>Um último QR permanece à disposição, sem pressa ou obrigação.</h2>`;
+  }
 }
 
-function mostrarMensagemFinal(){
-document.querySelector(".container").innerHTML=`<h2>Existe um último QR, se quiser, vem pegá-lo.</h2>`;
+function mostrarResultado(mensagem, textoBotao, emailMsg){
+  const tela = document.getElementById("tela");
+  tela.innerHTML = "";
+  const h2 = document.createElement("h2");
+  h2.innerText = mensagem;
+  tela.appendChild(h2);
+  const btn = document.createElement("button");
+  btn.innerText = textoBotao;
+  btn.onclick = () => {
+    window.open(mapsLink, "_blank");
+    enviarNotificacao(emailMsg);
+  };
+  tela.appendChild(btn);
 }
 
-function abrirMapa(){
-window.open(mapsLink, "_blank");
+function enviarNotificacao(msg){
+  const url = "https://docs.google.com/forms/d/e/1FAIpQLSdwhlo8fdEGi7vjCGlY2FeBCBfhYdnQjgGCLKFCGgceTNnjGw/formResponse";
+  const body = new FormData();
+  body.append("entry.1196602189", msg);
+  fetch(url, { method:"POST", mode:"no-cors", body });
 }
 
-function enviarEmail(msg){
-const url = "https://docs.google.com/forms/d/e/1FAIpQLSdwhlo8fdEGi7vjCGlY2FeBCBfhYdnQjgGCLKFCGgceTNnjGw/formResponse";
-const body = new FormData();
-body.append("entry.1196602189", msg);
-fetch(url, { method:"POST", mode:"no-cors", body });
-}
-
-mostrarPergunta();
+mostrar(paginas[0]);
 
 </script>
 </body>
